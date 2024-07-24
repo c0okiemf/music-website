@@ -1,5 +1,11 @@
 # Configurable Music App template with a player
 
+## Desktop
+<img src="image.png" alt="desktop screenshot" height="500"/>
+
+## Mobile
+<img src="image-1.png" alt="mobile screenshot" height="500"/>
+
 This is a fully configurable music app template with a functional music player. You can customize the HOME page with text and images. You can add links to music videos, and mp3 files to play straight from the app. You can also add links to your social media accounts.
 
 ## Features
@@ -95,4 +101,3 @@ You can see and modify the example `public/config.json` file to get a better und
    - CLOUDFRONT_DISTRIBUTION_ID - the id of the CloudFront distribution
    - REACT_APP_WEBSITE_DESCRIPTION - the description of the website, used for SEO
    - REACT_APP_WEBSITE_TITLE - the title of the website, shown in the browser tab
-   
