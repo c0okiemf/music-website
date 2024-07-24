@@ -55,6 +55,10 @@ interface Config {
             url: string,
             iconSrc: string,
         }[],
+    },
+    copyright: {
+        desktop: string,
+        mobile: string,
     }
 }
 

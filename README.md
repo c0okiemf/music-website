@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# Configurable Music App template with a player
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a fully configurable music app template with a functional music player. You can customize the HOME page with text and images. You can add links to music videos, and mp3 files to play straight from the app. You can also add links to your social media accounts.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Fully configurable
+- Functional music player
+- Add links to music videos
+- Add links to mp3 files
+- Add links to social media accounts
 
-### `npm start`
+## Instructions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone this repository
+2. Modify public/config.json to your liking
+   Config schema:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+interface Config {
+    home: {
+        layout: LayoutItem[]
+    },
+    audio: {
+        categories: {
+            title: string,
+            tracks: {
+                title: string;
+                artist: string;
+                album: string;
+                pictureUrl: string;
+                src: string;
+            }[],
+        }[],
+    },
+    video: {
+        categories: {
+            title: string,
+            items:  {
+                title: string,
+                src: string,
+            }[],
+        }[],
+    },
+    social: {
+        links: {
+            title: string,
+            url: string,
+            iconSrc: string,
+        }[],
+    },
+    copyright: {
+        desktop: string,
+        mobile: string,
+    }
+}
+```
 
-### `npm test`
+where layout item is any of the following:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+type LayoutItem = {
+    variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p",
+    type: "text",
+    isMainHeader?: boolean,
+    isBold?: boolean,
+    text: string
+} | {
+    variant: "textBlock",
+    type: "element",
+    content: LayoutItem[],
+} | {
+    variant: "p",
+    type: "compoundText",
+    content: LayoutItem[],
+} | {
+    type: "logo",
+    src: string,
+    size?: "large",
+}
+```
 
-### `npm run build`
+this allows for for a recursive and flexible layout structure.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Audio and video configs allow for structuring your music and video links into categories, e.g. albums, genres, etc.
+You can see and modify the example `public/config.json` file to get a better understanding of how to structure your data.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Place all of the resources used in the config file in the `public` folder
+4. If you want to use the included terraform config, you need to set up your local environment with permissions required to create the resources, such as an S3 bucker, a CloudFront distribution, and an ACM certificate. Then copy the `terraform.tfvars.example` file to `terraform.tfvars` and fill in the required values.
+5. If you want to use the supplied github workflow for easy deployment, you need to set up the following secrets in your repository:
+   - AWS_ACCESS_KEY_ID - the access key id for the user with the required permissions
+   - AWS_CONTENT_S3_BUCKET - the name of the S3 bucket where the dynamic content will be stored (public folder including config)
+   - AWS_S3_BUCKET - the name of the S3 bucket where the website will be hosted
+   - AWS_SECRET_ACCESS_KEY - the secret access key for the user with the required permissions
+   - CLOUDFRONT_DISTRIBUTION_ID - the id of the CloudFront distribution
+   - REACT_APP_WEBSITE_DESCRIPTION - the description of the website, used for SEO
+   - REACT_APP_WEBSITE_TITLE - the title of the website, shown in the browser tab
+   

@@ -62,7 +62,7 @@ function Footer() {
         ))}
       </IconBox>
       <div>
-        <Copyright>©{new Date().getFullYear()} Dissent Anthem{isDesktop ? " Records" : ""}</Copyright>
+        <Copyright>©{new Date().getFullYear()} {isDesktop ? config?.copyright?.desktop : config?.copyright?.mobile}</Copyright>
       </div>
     </FooterBox>
   );

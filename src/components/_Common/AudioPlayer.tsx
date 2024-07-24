@@ -14,6 +14,7 @@ import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
 import Marquee from './Marquee';
 import { useMusic } from '../../tools/useMusic';
 import useScreenSize from '../../tools/useScreenSize';
+import theme from '../../theme';
 
 const Widget = styled('div')(() => ({
     border: '1px solid',
@@ -25,6 +26,9 @@ const Widget = styled('div')(() => ({
     position: 'relative',
     zIndex: 1,
     backdropFilter: 'blur(40px)',
+    [theme.breakpoints.down('md')]: {
+        borderRadius: "16px 16px 0 0",
+    }
 }));
 
 const CoverImage = styled('div')({
